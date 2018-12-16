@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+mypy = "*"
+flake8 = "*"
+pytest = "*"
+pytest-hammertime = "*"
+flake8-import-order = "*"
+flake8-per-file-ignores = "*"
+
+[packages]
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+check = "sh -c 'mypy playlists && flake8 && pytest -q'"
