@@ -15,9 +15,7 @@ class ListensGateway(ListensGatewayABC):
         self.api_key = api_key
 
     def fetch_listen(self, listen_id: str) -> Listen:
-        r = requests.get(f'{self.base_url}/{listen_id}', headers={
-            'Authorization': f'Bearer {self.api_key}'
-        })
+        r = requests.get(f'{self.base_url}/{listen_id}', headers={'x-api-key': self.api_key})
         if not r.status_code == requests.codes.all_good:
             raise exceptions.ListensError('Error communicating with the listens service: '
                                           f'{r.json()["message"]}')
