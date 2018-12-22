@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 pacts/
 morning_cd_behave_tests.db
+/.serverless/
