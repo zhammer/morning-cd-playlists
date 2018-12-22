@@ -17,6 +17,7 @@ behave = "*"
 requests = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+sentry-sdk = "*"
 
 [requires]
 python_version = "3.7"

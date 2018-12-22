@@ -1,9 +1,19 @@
 import json
+import os
 from typing import Dict, List
 
+import sentry_sdk
+from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 
 from playlists.delivery import util
 from playlists.use_playlists import add_listen_to_playlist
+
+
+if os.environ.get('AWS_EXECUTION_ENV'):
+    sentry_sdk.init(
+        dsn='https://20880ec2d150490cb8f8f9dd60dc2205@sentry.io/1359131',
+        integrations=[AwsLambdaIntegration()]
+    )
 
 
 def consumer(event: Dict, context: Dict) -> None:
