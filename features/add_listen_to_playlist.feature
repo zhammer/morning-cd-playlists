@@ -30,6 +30,6 @@ Feature: Add a listen to a playlist
       | song_id                |
       | 41wel0JyLABRedko4XZLG1 |
       | 0kJ4CyjZJT0P4caqKYG4jZ |
-    When playlists received an add-listen-to-playlist message
+    When playlists receives an add-listen-to-playlist message
     Then there is a playlist for "2018-12-22"
     And the song id "0kJ4CyjZJT0P4caqKYG4jZ" has not been added to the corresponding spotify playlist

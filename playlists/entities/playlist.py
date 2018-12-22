@@ -8,7 +8,7 @@ def make_music_provider_playlist_input(for_date: date,
                                        music_provider: MusicProvider) -> MusicProviderPlaylistInput:
     return MusicProviderPlaylistInput(
         description=_make_playlist_description(for_date),
-        name=_make_playlist_description(for_date),
+        name=_make_playlist_name(for_date),
         music_provider=music_provider
     )
 

@@ -16,7 +16,7 @@ class DbGateway(DbGatewayABC):
         self.session = sessionmaker(bind=self.engine)()
 
     def fetch_playlist_by_date(self, playlist_date: date) -> Optional[Playlist]:
-        query = self.session.query(SqlPlaylist).filter(SqlPlaylist.date == playlist_date)
+        query = self.session.query(SqlPlaylist).filter(SqlPlaylist.playlist_date == playlist_date)
         sql_playlist = query.first()
         return sql_playlist and _pluck_playlist(sql_playlist)
 

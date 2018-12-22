@@ -22,4 +22,4 @@ psycopg2-binary = "*"
 python_version = "3.7"
 
 [scripts]
-check = "sh -c 'mypy playlists && flake8 && pytest -q'"
+check = "sh -c 'mypy playlists && flake8 && pytest -q && behave --format progress'"

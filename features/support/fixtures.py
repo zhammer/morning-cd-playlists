@@ -15,9 +15,10 @@ def with_aws_lambda_environment_variables(context: behave.runner.Context,
                                           database_connection_string: str) -> Generator:
     mock_env = {
         'DATABASE_CONNECTION_STRING': database_connection_string,
-        'SUNLIGHT_SERVICE_API_KEY': 'mock sunlight service api key',
+        'LISTENS_SERVICE_API_KEY': 'mock listens service api key',
         'SPOTIFY_CLIENT_ID': 'mock spotify client id',
-        'SPOTIFY_CLIENT_SECRET': 'mock spotify_client_secret'
+        'SPOTIFY_CLIENT_SECRET': 'mock spotify_client_secret',
+        'SPOTIFY_USER_REFRESH_TOKEN': 'mock spotify user refresh token'
     }
 
     with patch.dict(os.environ, mock_env):
