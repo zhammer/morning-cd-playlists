@@ -24,7 +24,7 @@ class TestFetchListen:
 
     def test_fetches_listen_by_id(self) -> None:
         # Given a listens service gateway
-        listens_service_gateway = ListensServiceGateway(api_key='xyz')
+        listens_service_gateway = ListensGateway(api_key='xyz')
 
         # And this pact with the listens service
         listen_fields = {
@@ -68,7 +68,7 @@ class TestFetchListen:
 
     def test_raises_exception_if_listen_doesnt_exist(self) -> None:
         # Given a listens service gateway
-        listens_service_gateway = ListensServiceGateway(api_key='xyz')
+        listens_service_gateway = ListensGateway(api_key='xyz')
 
         # And this pact with the listens service
         pact = PactMaker(

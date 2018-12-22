@@ -62,7 +62,7 @@ class MusicGateway(MusicGatewayABC):
     @staticmethod
     def fetch_access_token(client_id: str, client_secret: str, refresh_token: str) -> str:
         r = requests.post(
-            auth=(client_id, client_secret)
+            auth=(client_id, client_secret),
             data={
                 'grant_type': 'refresh_token',
                 'refresh_token': refresh_token

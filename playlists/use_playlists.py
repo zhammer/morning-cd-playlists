@@ -19,7 +19,8 @@ def add_listen_to_playlist(context: Context, listen_id: str) -> None:
 
 def create_playlist_for_listen(context: Context, listen: Listen) -> Playlist:
     music_provider_playlist_input = playlist_entity.make_music_provider_playlist_input(
-        for_date=listen.listen_date
+        for_date=listen.listen_date,
+        music_provider=listen.song_provider
     )
     music_provider_playlist = context.music_gateway.create_playlist(music_provider_playlist_input)
     return context.db_gateway.create_playlist(music_provider_playlist, listen.listen_date)

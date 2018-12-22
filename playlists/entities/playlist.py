@@ -1,13 +1,15 @@
 import random
 from datetime import date
 
-from playlists.definitions import MusicProviderPlaylistInput
+from playlists.definitions import MusicProvider, MusicProviderPlaylistInput
 
 
-def make_music_provider_playlist_input(for_date) -> MusicProviderPlaylistInput:
+def make_music_provider_playlist_input(for_date: date,
+                                       music_provider: MusicProvider) -> MusicProviderPlaylistInput:
     return MusicProviderPlaylistInput(
         description=_make_playlist_description(for_date),
-        name=_make_playlist_description(for_date)
+        name=_make_playlist_description(for_date),
+        music_provider=music_provider
     )
 
 

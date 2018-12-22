@@ -3,8 +3,9 @@ from typing import Dict
 
 import requests
 
+from playlists import exceptions
 from playlists.abc import ListensGateway as ListensGatewayABC
-from playlists.definitions import Listen, MusicProvider, exceptions
+from playlists.definitions import Listen, MusicProvider
 
 
 class ListensGateway(ListensGatewayABC):
