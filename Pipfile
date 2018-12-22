@@ -11,6 +11,7 @@ pytest-hammertime = "*"
 flake8-import-order = "*"
 flake8-per-file-ignores = "*"
 faaspact-maker = "*"
+behave = "*"
 
 [packages]
 requests = "*"
