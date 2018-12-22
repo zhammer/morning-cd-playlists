@@ -1,0 +1,55 @@
+service: morning-cd-playlists
+
+provider:
+  name: aws
+  runtime: python3.7
+
+package:
+  include:
+    - playlists/**
+
+functions:
+  add-listen-to-playlist:
+    description: Consumer for the add listen to playlist sqs queue
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt: [AddListenToPlaylistQueue, Arn]
+    timeout: 30
+    reservedConcurrency: 1
+    handler:
+      playlists/delivery/sqs_consumer.consumer
+    environment:
+      DATABASE_CONNECTION_STRING: ${self:custom.secrets.DATABASE_CONNECTION_STRING}
+      SPOTIFY_CLIENT_ID: ${self:custom.secrets.SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${self:custom.secrets.SPOTIFY_CLIENT_SECRET}
+      LISTENS_SERVICE_API_KEY: ${self:custom.secrets.LISTENS_SERVICE_API_KEY}
+      SPOTIFY_USER_REFRESH_TOKEN: ${self:custom.secrets.SPOTIFY_USER_REFRESH_TOKEN}
+    vpc:
+      securityGroupIds:
+        - sg-0adf9c7c69d863eb5
+      subnetIds:
+        - subnet-09a25d5f1adcc44c7
+        - subnet-0d40a6ff68c401dd5
+        - subnet-047fe21bec462bcc5
+        - subnet-038478ac6e33b3974
+        - subnet-06c744148461a661c
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+  secrets:
+    DATABASE_CONNECTION_STRING: ${env:DATABASE_CONNECTION_STRING}
+    SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+    SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+    SPOTIFY_USER_REFRESH_TOKEN: ${env:SPOTIFY_USER_REFRESH_TOKEN}
+    LISTENS_SERVICE_API_KEY: ${env:LISTENS_SERVICE_API_KEY}
+
+resources:
+  Resources:
+    AddListenToPlaylistQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: AddListenToPlaylistQueue
+
+plugins:
+  - serverless-python-requirements
