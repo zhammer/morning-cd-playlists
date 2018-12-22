@@ -30,7 +30,7 @@ class TestFetchListen:
         listen_fields = {
             'id': '1',
             'song_id': '41wel0JyLABRedko4XZLG1',
-            'listen_date': '2018-11-04T15:04:49.987156',
+            'listen_time_utc': '2018-11-04T15:04:49.987156',
             'song_provider': 'SPOTIFY'
         }
         pact = PactMaker(

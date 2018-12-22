@@ -1,2 +1,2 @@
 from .listens_gateway import ListensGateway
-from .music_gateway import MusicProviderGateway
+from .music_gateway import MusicGateway

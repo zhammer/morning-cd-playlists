@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, cast
 from urllib.parse import urlencode
 
 import requests
@@ -51,7 +51,7 @@ class MusicGateway(MusicGatewayABC):
             if not r.status_code == requests.codes.all_good:
                 raise RuntimeError
             songs += _pluck_songs(r.json()['items'])
-            next_page = r.json('next')
+            next_page = r.json()['next']
 
         return MusicProviderPlaylist(
             id=playlist.music_provider_playlist_id,
@@ -62,13 +62,14 @@ class MusicGateway(MusicGatewayABC):
     @staticmethod
     def fetch_access_token(client_id: str, client_secret: str, refresh_token: str) -> str:
         r = requests.post(
+            MusicGateway.auth_url,
             auth=(client_id, client_secret),
             data={
                 'grant_type': 'refresh_token',
                 'refresh_token': refresh_token
             }
         )
-        return r.json()['access_token']
+        return cast(str, r.json()['access_token'])
 
 
 def _pluck_songs(raw_songs: Dict) -> List[Song]:

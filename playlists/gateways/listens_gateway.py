@@ -28,14 +28,14 @@ def _pluck_listen(raw_listen: Dict) -> Listen:
     return Listen(
         id=raw_listen['id'],
         song_id=raw_listen['song_id'],
+        song_provider=MusicProvider[raw_listen['song_provider']],
         listen_date=_pluck_date(raw_listen['listen_time_utc']),
-        song_provider=MusicProvider(raw_listen['song_provider'])
     )
 
 
 def _pluck_date(datetime_string: str) -> date:
     """
     >>> _pluck_date('2018-11-04T15:04:49.987156')
-    date(2018, 11, 4)
+    datetime.date(2018, 11, 4)
     """
-    datetime.fromisoformat(datetime_string).date()
+    return datetime.fromisoformat(datetime_string).date()
