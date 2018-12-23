@@ -23,4 +23,4 @@ sentry-sdk = "*"
 python_version = "3.7"
 
 [scripts]
-check = "sh -c 'mypy playlists && flake8 && pytest -q && behave --format progress'"
+check = "sh -c 'mypy playlists features && flake8 playlists features && pytest -q && behave --format progress'"
