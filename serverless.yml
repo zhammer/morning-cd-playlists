@@ -50,6 +50,13 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: AddListenToPlaylistQueue
+    ListenAddedSNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: sqs
+        Endpoint: arn:aws:sqs:us-east-1:550212734867:AddListenToPlaylistQueue
+        TopicArn: arn:aws:sns:us-east-1:550212734867:ListenAddedSNSTopic
+
 
 plugins:
   - serverless-python-requirements
