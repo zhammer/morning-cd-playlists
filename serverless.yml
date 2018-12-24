@@ -25,15 +25,7 @@ functions:
       SPOTIFY_CLIENT_SECRET: ${self:custom.secrets.SPOTIFY_CLIENT_SECRET}
       LISTENS_SERVICE_API_KEY: ${self:custom.secrets.LISTENS_SERVICE_API_KEY}
       SPOTIFY_USER_REFRESH_TOKEN: ${self:custom.secrets.SPOTIFY_USER_REFRESH_TOKEN}
-    vpc:
-      securityGroupIds:
-        - sg-0adf9c7c69d863eb5
-      subnetIds:
-        - subnet-09a25d5f1adcc44c7
-        - subnet-0d40a6ff68c401dd5
-        - subnet-047fe21bec462bcc5
-        - subnet-038478ac6e33b3974
-        - subnet-06c744148461a661c
+
 custom:
   pythonRequirements:
     dockerizePip: non-linux
