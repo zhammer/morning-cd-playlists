@@ -4,14 +4,10 @@ from urllib.parse import urlencode
 import requests
 
 from playlists.abc import MusicGateway as MusicGatewayABC
-from playlists.definitions import (
-    Listen,
-    MusicProvider,
-    MusicProviderPlaylist,
-    MusicProviderPlaylistInput,
-    Playlist,
-    Song
-)
+from playlists.definitions import (Listen, MusicProvider,
+                                   MusicProviderPlaylist,
+                                   MusicProviderPlaylistInput, Playlist, Song)
+from playlists.exceptions import MusicProviderError
 
 
 class MusicGateway(MusicGatewayABC):
@@ -29,7 +25,7 @@ class MusicGateway(MusicGatewayABC):
             json=_build_create_playlist_body(playlist_input)
         )
         if not r.status_code == requests.codes.created:
-            raise RuntimeError
+            raise MusicProviderError(f'Unexpected spotify response. {r.status_code}: {r.text}')
         return _pluck_new_music_provider_playlist(r.json())
 
     def add_listen_to_playlist(self, listen: Listen, playlist: Playlist) -> None:
@@ -39,7 +35,7 @@ class MusicGateway(MusicGatewayABC):
             params=_build_add_tracks_params(listen)
         )
         if not r.status_code == requests.codes.created:
-            raise RuntimeError
+            raise MusicProviderError(f'Unexpected spotify response. {r.status_code}: {r.text}')
         return None
 
     def fetch_playlist(self, playlist: Playlist) -> MusicProviderPlaylist:
@@ -49,7 +45,7 @@ class MusicGateway(MusicGatewayABC):
         while next_page:
             r = requests.get(next_page, headers={'Authorization': f'Bearer {self.access_token}'})
             if not r.status_code == requests.codes.all_good:
-                raise RuntimeError
+                raise MusicProviderError(f'Unexpected spotify response. {r.status_code}: {r.text}')
             songs += _pluck_songs(r.json()['items'])
             next_page = r.json()['next']
 
@@ -69,6 +65,8 @@ class MusicGateway(MusicGatewayABC):
                 'refresh_token': refresh_token
             }
         )
+        if not r.status_code == requests.codes.all_good:
+            raise MusicProviderError(f'Unexpected spotify response. {r.status_code}: {r.text}')
         return cast(str, r.json()['access_token'])
 
 
