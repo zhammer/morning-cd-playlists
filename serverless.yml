@@ -3,6 +3,14 @@ service: morning-cd-playlists
 provider:
   name: aws
   runtime: python3.7
+  tracing: True
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
 
 package:
   include:
@@ -52,3 +60,4 @@ resources:
 
 plugins:
   - serverless-python-requirements
+  - serverless-plugin-tracing

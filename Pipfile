@@ -18,6 +18,7 @@ requests = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 sentry-sdk = "*"
+aws-xray-sdk = "*"
 
 [requires]
 python_version = "3.7"
